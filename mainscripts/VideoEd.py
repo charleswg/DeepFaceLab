@@ -32,8 +32,10 @@ def extract_video(input_file, output_dir, output_ext=None, fps=None, start_frame
         Path(filename).unlink()
 
     job = ffmpeg.input(str(input_file_path))
-    if start_number is not None and end_frame is not None:
+    
+    if start_frame is not None and end_frame is not None:
         job = job.trim(start_frame=start_frame, end_frame=end_frame)
+    
     kwargs = {'pix_fmt': 'rgb24'}
     if fps != 0:
         kwargs.update ({'r':str(fps)})
