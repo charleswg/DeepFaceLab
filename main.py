@@ -185,6 +185,7 @@ if __name__ == "__main__":
     p.add_argument('--output-dir', required=True, action=fixPathAction, dest="output_dir", help="Output directory. This is where the extracted images will be stored.")
     p.add_argument('--output-ext', dest="output_ext", default=None, help="Image format (extension) of output files.")
     p.add_argument('--fps', type=int, dest="fps", default=None, help="How many frames of every second of the video will be extracted. 0 - full fps.")
+    p.add_argument('--start_number', dest="start_number", default=0, help="starting frame number")
     p.set_defaults(func=process_videoed_extract_video)
 
     def process_videoed_cut_video(arguments):
