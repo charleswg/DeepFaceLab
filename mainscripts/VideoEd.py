@@ -5,13 +5,12 @@ from pathlib import Path
 from core import pathex
 from core.interact import interact as io
 
-def extract_video(input_file, output_dir, output_ext=None, fps=None):
+def extract_video(input_file, output_dir, output_ext=None, fps=None, start_frame=None, end_frame=None):
     input_file_path = Path(input_file)
     output_path = Path(output_dir)
 
     if not output_path.exists():
         output_path.mkdir(exist_ok=True)
-
 
     if input_file_path.suffix == '.*':
         input_file_path = pathex.get_first_file_by_stem (input_file_path.parent, input_file_path.stem)
@@ -33,7 +32,8 @@ def extract_video(input_file, output_dir, output_ext=None, fps=None):
         Path(filename).unlink()
 
     job = ffmpeg.input(str(input_file_path))
-
+    if start_number is not None and end_frame is not None:
+        job = job.trim(start_frame=start_frame, end_frame=end_frame)
     kwargs = {'pix_fmt': 'rgb24'}
     if fps != 0:
         kwargs.update ({'r':str(fps)})
